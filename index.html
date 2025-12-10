@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="bento">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Visa Specialists</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['var(--font-main)', 'sans-serif'],
+                        display: ['var(--font-display)', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: 'var(--color-brand)',
+                        accent: 'var(--color-accent)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* =========================================
+           THEME VARIABLES & DEFINITIONS
+           ========================================= */
+        
+        :root {
+            --transition-speed: 0.3s;
+        }
+
+        /* --- THEME: BENTO GRID (Apple, Structured, Clean) --- */
+        [data-theme="bento"] {
+            --font-main: 'Inter';
+            --font-display: 'Inter';
+            --bg-body: #f5f5f7; /* Apple Gray */
+            --bg-card: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --border-card: 1px solid transparent;
+            --radius-card: 2rem; /* 32px */
+            --radius-btn: 9999px;
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --color-brand: #0071e3; /* Tech Blue */
+            --color-accent: #0071e3;
+            --backdrop-filter: none;
+            --btn-bg: #1d1d1f;
+            --btn-text: #ffffff;
+            --input-bg: #f5f5f7;
+            --input-border: 1px solid transparent;
+            --input-shadow: none;
+        }
+
+        /* --- THEME: SWISS EDITORIAL (Grid, Playfair, High Contrast) --- */
+        [data-theme="swiss"] {
+            --font-main: 'Inter';
+            --font-display: 'Playfair Display';
+            --bg-body: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #000000;
+            --text-muted: #404040;
+            --border-card: 1px solid #000000; /* Sharp Grid Line */
+            --radius-card: 0px;
+            --radius-btn: 0px;
+            --shadow-card: none;
+            --color-brand: #FF3333; /* Editorial Red */
+            --color-accent: #000000;
+            --backdrop-filter: none;
+            --btn-bg: #000000;
+            --btn-text: #ffffff;
+            --input-bg: #ffffff;
+            --input-border: 1px solid #000000;
+            --input-shadow: none;
+        }
+
+        /* --- THEME: MATERIAL (Clean, White, Elevated) --- */
+        [data-theme="material"] {
+            --font-main: 'Inter';
+            --font-display: 'Inter';
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-card: 1px solid transparent;
+            --radius-card: 1rem;
+            --radius-btn: 0.5rem;
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --color-brand: #2563eb;
+            --color-accent: #3b82f6;
+            --backdrop-filter: none;
+            --btn-bg: #2563eb;
+            --btn-text: #ffffff;
+            --input-bg: #f1f5f9;
+            --input-border: 1px solid #cbd5e1;
+            --input-shadow: inner 0 2px 4px 0 rgba(0,0,0,0.05);
+        }
+
+        /* --- THEME: DARK LUXURY (Black, Gold, Serif) --- */
+        [data-theme="luxury"] {
+            --font-main: 'Outfit';
+            --font-display: 'Playfair Display';
+            --bg-body: #050505; /* Pitch Black */
+            --bg-card: #0a0a0a; /* Almost Black */
+            --text-main: #ffffff;
+            --text-muted: #a3a3a3;
+            --border-card: 1px solid rgba(212, 175, 55, 0.3); /* Metallic Gold */
+            --radius-card: 0px; /* Sharp corners */
+            --radius-btn: 0px;
+            --shadow-card: none;
+            --color-brand: #D4AF37; /* Metallic Gold */
+            --color-accent: #F4E08B; /* Light Gold */
+            --backdrop-filter: none;
+            --btn-bg: linear-gradient(135deg, #D4AF37 0%, #B4941F 100%);
+            --btn-text: #000000;
+            --input-bg: #050505;
+            --input-border: 1px solid #333;
+            --input-shadow: none;
+        }
+
+        /* --- THEME: NEUMORPHISM (Soft, Gray, Extruded - Black Buttons) --- */
+        [data-theme="neu"] {
+            --font-main: 'Inter';
+            --font-display: 'Inter';
+            --bg-body: #e0e0e0;
+            --bg-card: #e0e0e0;
+            --text-main: #000000;
+            --text-muted: #404040;
+            --border-card: 1px solid rgba(255,255,255,0.2);
+            --radius-card: 1.5rem;
+            --radius-btn: 1.5rem;
+            --shadow-card: 9px 9px 16px rgba(0,0,0,0.2), -9px -9px 16px rgba(255,255,255, 0.8);
+            --color-brand: #000000;
+            --color-accent: #000000;
+            --backdrop-filter: none;
+            --btn-bg: #000000; /* Strict Black */
+            --btn-text: #ffffff; /* White */
+            --input-bg: #e0e0e0;
+            --input-border: none;
+            --input-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+        }
+
+        /* --- THEME: NORDIC MINIMAL (Warm, Earthy, Matte) --- */
+        [data-theme="nordic"] {
+            --font-main: 'DM Sans';
+            --font-display: 'DM Sans';
+            --bg-body: #F2F0E9; /* Warm Bone/Beige */
+            --bg-card: #FFFFFF;
+            --text-main: #3D4035; /* Charcoal/Dark Olive */
+            --text-muted: #7E8276; /* Sage Grey */
+            --border-card: 1px solid #EBE9E1;
+            --radius-card: 0.5rem; /* Slight soft round */
+            --radius-btn: 4px;
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.05); /* Very subtle lift */
+            --color-brand: #5F6F52; /* Sage Green */
+            --color-accent: #A98467; /* Earthy Brown */
+            --backdrop-filter: none;
+            --btn-bg: #5F6F52;
+            --btn-text: #FFFFFF;
+            --input-bg: #F9F8F6;
+            --input-border: 1px solid #E0DED6;
+            --input-shadow: none;
+        }
+
+        /* =========================================
+           GLOBAL STYLES APPLIED VIA VARIABLES
+           ========================================= */
+        body {
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-main), sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: var(--font-display), sans-serif;
+        }
+        
+        /* Swiss Specific Typography Tweak */
+        [data-theme="swiss"] h1 {
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: -1px;
+        }
+        [data-theme="swiss"] h2 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2rem;
+        }
+
+        /* Card Styles */
+        .theme-card {
+            background: var(--bg-card);
+            border: var(--border-card);
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+            backdrop-filter: var(--backdrop-filter);
+            -webkit-backdrop-filter: var(--backdrop-filter);
+            transition: all var(--transition-speed) ease;
+        }
+
+        /* Hover Effects */
+        .theme-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Specific Theme Hovers */
+        [data-theme="neu"] .theme-card:hover {
+             box-shadow: inset 6px 6px 10px 0 rgba(0,0,0, 0.2), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+             transform: translateY(0);
+        }
+        
+        [data-theme="luxury"] .theme-card:hover {
+            border-color: var(--color-brand);
+            transform: translateY(-2px);
+        }
+        
+        [data-theme="swiss"] .theme-card:hover {
+            transform: translateY(0);
+            background: #f5f5f5;
+        }
+        
+        [data-theme="nordic"] .theme-card:hover {
+            box-shadow: 0 10px 30px -10px rgba(95, 111, 82, 0.15);
+            border-color: var(--color-brand);
+        }
+
+        /* BENTO SPECIFIC GRID LAYOUT LOGIC */
+        @media (min-width: 1024px) {
+            [data-theme="bento"] #services .grid {
+                grid-auto-flow: dense;
+            }
+            [data-theme="bento"] #services .grid > div:nth-child(1),
+            [data-theme="bento"] #services .grid > div:nth-child(4) {
+                grid-column: span 2;
+            }
+        }
+
+        /* Button Styles */
+        .theme-btn {
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border-radius: var(--radius-btn);
+            transition: all 0.2s ease;
+        }
+        
+        [data-theme="neu"] .theme-btn { 
+            box-shadow: none; 
+        }
+        [data-theme="neu"] .theme-btn:hover { 
+            background-color: #333333;
+        }
+        
+        [data-theme="luxury"] .theme-btn {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        [data-theme="nordic"] .theme-btn {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Input Styles */
+        .theme-input {
+            background: var(--input-bg);
+            border: var(--input-border);
+            border-radius: var(--radius-card);
+            box-shadow: var(--input-shadow);
+            color: var(--text-main);
+            width: 100%;
+            padding: 1rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        
+        /* Input Overrides per theme */
+        [data-theme="material"] .theme-input { border-radius: 0.5rem; }
+        [data-theme="neu"] .theme-input { border-radius: 0.75rem; }
+        [data-theme="luxury"] .theme-input { border-radius: 0px; }
+        [data-theme="swiss"] .theme-input { border-radius: 0px; }
+        [data-theme="bento"] .theme-input { border-radius: 0.75rem; }
+        [data-theme="nordic"] .theme-input { border-radius: 4px; }
+
+        .theme-input:focus {
+            border-color: var(--color-brand);
+        }
+        
+        [data-theme="neu"] .theme-input:focus {
+             box-shadow: inset 3px 3px 6px #bebebe, inset -3px -3px 6px #ffffff;
+             border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        [data-theme="luxury"] .theme-input:focus {
+            border-color: var(--color-brand);
+            background: #111;
+        }
+        
+        [data-theme="swiss"] .theme-input:focus {
+            border-bottom: 4px solid var(--color-brand);
+        }
+
+        /* Typography Colors */
+        .text-theme-muted { color: var(--text-muted); }
+        .text-theme-brand { color: var(--color-brand); }
+        
+        html { scroll-behavior: smooth; }
+
+        /* Theme Switcher Styles */
+        .switcher-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            gap: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .theme-option {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .theme-option:hover { transform: scale(1.15); }
+        .theme-option.active { border-color: #000; transform: scale(1.1); }
+        
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-transparent" style="background: var(--bg-card); backdrop-filter: var(--backdrop-filter); -webkit-backdrop-filter: var(--backdrop-filter); border-color: var(--border-card);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-white shadow-lg" style="background: var(--color-brand); border: var(--border-card);">
+                        AV
+                    </div>
+                    <span class="text-xl font-bold tracking-wide">Visa<span class="text-theme-brand">Specialists</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-1">
+                    <a href="#" class="px-5 py-2 rounded-full transition-all hover:opacity-80 font-medium">Home</a>
+                    <a href="#services" class="px-5 py-2 rounded-full transition-all hover:opacity-80 text-theme-muted hover:text-var(--text-main) font-medium">Visas</a>
+                    <a href="#process" class="px-5 py-2 rounded-full transition-all hover:opacity-80 text-theme-muted hover:text-var(--text-main) font-medium">Process</a>
+                    <a href="#contact" class="px-5 py-2 rounded-full transition-all hover:opacity-80 text-theme-muted hover:text-var(--text-main) font-medium">Contact</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex">
+                    <a href="#contact" class="theme-btn px-8 py-3 font-bold transition-transform hover:scale-105">
+                        Book Now
+                    </a>
+                </div>
+                
+                 <!-- Mobile Menu -->
+                 <div class="md:hidden">
+                    <button class="text-theme-brand">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 pt-10 pb-20">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                
+                <!-- Text Content -->
+                <div class="lg:w-1/2 animate-fade-in">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-8 theme-card">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-theme-muted">Official Partner</span>
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-8 leading-tight font-display">
+                        Boundless <br/>
+                        <span class="text-theme-brand">Australia.</span>
+                    </h1>
+                    <p class="text-xl text-theme-muted mb-10 max-w-lg leading-relaxed">
+                        We blend legal expertise with seamless technology to make your migration journey effortless. Your new life awaits.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-5">
+                        <a href="#contact" class="theme-btn px-8 py-4 font-bold text-center">
+                            Check Eligibility
+                        </a>
+                        <a href="#services" class="theme-card px-8 py-4 font-bold text-center hover:opacity-80">
+                            Explore Visas
+                        </a>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="mt-12 pt-8 border-t grid grid-cols-3 gap-6" style="border-color: var(--border-card)">
+                        <div>
+                            <div class="text-2xl font-bold">98%</div>
+                            <div class="text-xs text-theme-muted uppercase tracking-wider">Success</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold">10k+</div>
+                            <div class="text-xs text-theme-muted uppercase tracking-wider">Clients</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold">15Y</div>
+                            <div class="text-xs text-theme-muted uppercase tracking-wider">Years</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="lg:w-1/2 relative">
+                    <div class="theme-card p-4 relative z-10 transform rotate-2 hover:rotate-0 transition duration-700">
+                        <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1000&auto=format&fit=crop" alt="Sydney Opera House" class="w-full h-[500px] object-cover rounded-xl shadow-inner">
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute bottom-8 left-8 right-8 theme-card p-6 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-lg">Fast Track Processing</h4>
+                                <p class="text-theme-muted text-xs">Premium service available</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg" style="background: var(--color-brand)">
+                                <i class="fas fa-arrow-right transform -rotate-45"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 font-display">Curated Pathways</h2>
+                    <p class="text-theme-muted text-lg max-w-xl">Specialized legal assistance for every major visa subclass.</p>
+                </div>
+            </div>
+
+            <!-- The Grid Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="theme-card p-8 group cursor-pointer flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-lg mb-6 text-white" style="background: var(--color-brand)">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Student Visa</h3>
+                        <p class="text-theme-muted mb-6 leading-relaxed text-sm">Unlock world-class education. We manage enrollments and Subclass 500 applications.</p>
+                    </div>
+                    <div class="text-theme-brand font-bold text-sm mt-auto">Learn More <i class="fas fa-arrow-right ml-1"></i></div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="theme-card p-8 group cursor-pointer flex flex-col justify-between h-full">
+                    <div>
+                         <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-lg mb-6 text-white" style="background: var(--color-brand)">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Skilled Worker</h3>
+                        <p class="text-theme-muted mb-6 leading-relaxed text-sm">Your skills are in demand. GSM, TSS, and Employer Nomination Scheme expertise.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="theme-card p-8 group cursor-pointer flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-lg mb-6 text-white" style="background: var(--color-brand)">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Tourist Visa</h3>
+                        <p class="text-theme-muted mb-6 leading-relaxed text-sm">Experience the extraordinary. Fast-tracked visitor visas for holiday or business.</p>
+                    </div>
+                </div>
+                 <!-- Card 4 -->
+                 <div class="theme-card p-8 group cursor-pointer flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-lg mb-6 text-white" style="background: var(--color-brand)">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Family Visa</h3>
+                        <p class="text-theme-muted mb-6 leading-relaxed text-sm">Bring your family together. Partner, Parent, and Child visa pathways.</p>
+                    </div>
+                     <div class="text-theme-brand font-bold text-sm mt-auto">Reunite Today <i class="fas fa-arrow-right ml-1"></i></div>
+                </div>
+                 <!-- Card 5 -->
+                 <div class="theme-card p-8 group cursor-pointer flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-lg mb-6 text-white" style="background: var(--color-brand)">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Business</h3>
+                        <p class="text-theme-muted mb-6 leading-relaxed text-sm">Invest in Australia's future. Innovation and Investment stream consulting.</p>
+                    </div>
+                </div>
+                 <!-- Card 6 -->
+                 <div class="theme-card p-8 group cursor-pointer flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-lg mb-6 text-white" style="background: var(--color-brand)">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Citizenship</h3>
+                        <p class="text-theme-muted mb-6 leading-relaxed text-sm">The final step. We help you navigate the path to Australian citizenship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center font-display">Voices of Success</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="theme-card p-8">
+                    <div class="flex text-theme-brand mb-6 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-theme-muted mb-8 italic leading-relaxed text-sm">"The transparency of their service is amazing. They illuminated the path to my student visa when I was completely lost."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t" style="border-color: var(--border-card)">
+                        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+                        <div>
+                            <h4 class="font-bold text-sm">Sarah J.</h4>
+                            <p class="text-xs text-theme-muted">Student Visa</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Review 2 -->
+                 <div class="theme-card p-8">
+                    <div class="flex text-theme-brand mb-6 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-theme-muted mb-8 italic leading-relaxed text-sm">"Efficient, digital-first, and highly professional. Got my TSS visa approved in record time."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t" style="border-color: var(--border-card)">
+                        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+                        <div>
+                            <h4 class="font-bold text-sm">Mike C.</h4>
+                            <p class="text-xs text-theme-muted">Skilled Worker</p>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Review 3 -->
+                 <div class="theme-card p-8">
+                    <div class="flex text-theme-brand mb-6 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-theme-muted mb-8 italic leading-relaxed text-sm">"They didn't just file papers; they built a strategy. My partner visa was complex, but they handled it perfectly."</p>
+                    <div class="flex items-center gap-3 pt-4 border-t" style="border-color: var(--border-card)">
+                        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+                        <div>
+                            <h4 class="font-bold text-sm">David S.</h4>
+                            <p class="text-xs text-theme-muted">Partner Visa</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & BOOKING SECTION -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                
+                <!-- Contact Info -->
+                <div class="sticky top-24">
+                    <span class="text-theme-brand font-bold tracking-widest uppercase text-xs mb-3 block">Start Your Journey</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8 font-display">Book Your Consultation Today.</h2>
+                    <p class="text-theme-muted text-lg mb-10 leading-relaxed">
+                        Ready to make the move? Fill out the form to schedule a one-on-one session with our senior migration agents. We analyze your profile and map out the most secure path to your visa.
+                    </p>
+                    
+                    <div class="space-y-6">
+                         <div class="theme-card p-6 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-xl shadow-lg" style="background: var(--color-brand)">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Visit Us</h4>
+                                <p class="text-theme-muted text-sm">Level 12, 100 George St, Sydney NSW 2000</p>
+                            </div>
+                         </div>
+                         <div class="theme-card p-6 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-xl shadow-lg" style="background: var(--color-brand)">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Email Us</h4>
+                                <p class="text-theme-muted text-sm">consultations@australiavisa.com</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="theme-card p-8 md:p-10">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-2 ml-1">First Name</label>
+                                <input type="text" placeholder="John" class="theme-input">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2 ml-1">Last Name</label>
+                                <input type="text" placeholder="Doe" class="theme-input">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold mb-2 ml-1">Email Address</label>
+                            <input type="email" placeholder="john@example.com" class="theme-input">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-2 ml-1">Visa Type</label>
+                                <div class="relative">
+                                    <select class="theme-input appearance-none">
+                                        <option>Student Visa</option>
+                                        <option>Skilled Worker</option>
+                                        <option>Partner/Family</option>
+                                        <option>Business/Investor</option>
+                                        <option>Tourist</option>
+                                    </select>
+                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-theme-muted">
+                                        <i class="fas fa-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-2 ml-1">Preferred Date</label>
+                                <input type="date" class="theme-input">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold mb-2 ml-1">Message (Optional)</label>
+                            <textarea rows="4" placeholder="Tell us a bit about your situation..." class="theme-input"></textarea>
+                        </div>
+
+                        <button type="button" class="theme-btn w-full py-4 font-bold text-lg mt-4 transition-transform hover:scale-[1.02]">
+                            Submit Request
+                        </button>
+                        
+                        <p class="text-center text-xs text-theme-muted mt-4">
+                            By submitting this form, you agree to our privacy policy.
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="relative pt-24 pb-12 border-t" style="background: var(--bg-card); border-color: var(--border-card);">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-theme-muted">
+            <div>
+                <span class="text-xl font-bold tracking-tight block mb-4" style="color: var(--text-main)">Visa<span class="text-theme-brand">Specialists</span></span>
+                <p class="leading-relaxed">Modern immigration solutions for a global world.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 uppercase tracking-wide" style="color: var(--text-main)">Services</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-theme-brand transition">Student Visa</a></li>
+                    <li><a href="#" class="hover:text-theme-brand transition">Skilled Migration</a></li>
+                    <li><a href="#" class="hover:text-theme-brand transition">Business Visa</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 uppercase tracking-wide" style="color: var(--text-main)">Company</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-theme-brand transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-theme-brand transition">Process</a></li>
+                    <li><a href="#" class="hover:text-theme-brand transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4 uppercase tracking-wide" style="color: var(--text-main)">Contact</h4>
+                <p class="mb-2">123 Visa Street, Sydney</p>
+                <p class="mb-2">+61 2 1234 5678</p>
+                <p>hello@australiavisa.com</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t text-center text-xs text-theme-muted" style="border-color: var(--border-card);">
+            &copy; 2024 Australian Visa Company. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- THEME SWITCHER WIDGET -->
+    <div class="switcher-panel">
+        <div class="theme-option active" style="background: #f5f5f7; border: 1px solid #ccc; color: #000;" onclick="setTheme('bento')" title="Bento Grid">
+             <i class="fas fa-th-large text-[10px]"></i>
+        </div>
+        <div class="theme-option" style="background: #fff; border: 1px solid #000; color: #000;" onclick="setTheme('swiss')" title="Swiss Editorial">
+             <span class="text-[10px] font-bold">Sz</span>
+        </div>
+        <div class="theme-option" style="background: #f8fafc; border: 1px solid #ccc;" onclick="setTheme('material')" title="Material"></div>
+        <div class="theme-option" style="background: #000; border: 1px solid #D4AF37;" onclick="setTheme('luxury')" title="Dark Luxury"></div>
+        <div class="theme-option" style="background: #e0e0e0;" onclick="setTheme('neu')" title="Neumorphism"></div>
+        <div class="theme-option" style="background: #F2F0E9; border: 1px solid #5F6F52; color: #5F6F52;" onclick="setTheme('nordic')" title="Nordic Minimal">
+             <i class="fas fa-leaf text-[10px]"></i>
+        </div>
+    </div>
+
+    <script>
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Update active state in switcher
+            document.querySelectorAll('.theme-option').forEach(el => {
+                el.classList.remove('active');
+                if(el.getAttribute('onclick').includes(themeName)) {
+                    el.classList.add('active');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
